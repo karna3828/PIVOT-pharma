@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading the Pivot — Track D Pharma Intelligence Platform</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toasts" aria-live="polite"></div>
+
+<!-- LOGIN -->
+<main id="login" class="login">
+  <div class="login-card">
+    <div class="logo"><i class="fa-solid fa-dna"></i></div>
+    <h1>Reading the Pivot</h1>
+    <p class="tag">Evidence-backed. Narrative-tested. Forward-looking.</p>
+    <small class="track">Track D — Pharma Intelligence Platform</small>
+    <div class="demo-box">
+      <span class="badge orange">DEMO ACCESS</span>
+      <p>Username: <code>sunpharma_demo</code><br>Password: <code>SunPivot@2026</code></p>
+      <button class="btn ghost" id="fillBtn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Fill Demo Credentials</button>
+    </div>
+    <label for="user">Username</label><input id="user" autocomplete="off">
+    <label for="pass">Password</label><input id="pass" type="password">
+    <p id="loginErr" class="err" role="alert"></p>
+    <button class="btn primary wide" id="loginBtn" type="button">Login <i class="fa-solid fa-arrow-right"></i></button>
+    <small class="note">Fictional prototype credentials for a hackathon demo. Not an official Sun Pharma login and not affiliated with Sun Pharmaceutical Industries Ltd. Front-end demo only — not production authentication.</small>
+  </div>
+</main>
+
+<!-- APP -->
+<div id="app" class="app hidden">
+  <aside id="sidebar" class="sidebar">
+    <div class="brand"><i class="fa-solid fa-dna"></i><span>Reading the Pivot</span></div>
+    <nav id="nav">
+      <a href="#overview" data-p="overview"><i class="fa-solid fa-gauge-high"></i><span>Overview</span></a>
+      <a href="#financial" data-p="financial"><i class="fa-solid fa-chart-line"></i><span>Financial Performance</span></a>
+      <a href="#reports" data-p="reports"><i class="fa-solid fa-file-pdf"></i><span>Annual Reports</span></a>
+      <a href="#narrative" data-p="narrative"><i class="fa-solid fa-scale-balanced"></i><span>Narrative vs Reality</span></a>
+      <a href="#signals" data-p="signals"><i class="fa-solid fa-satellite-dish"></i><span>Pivot Signal Monitor</span></a>
+      <a href="#research" data-p="research"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Research &amp; Evidence</span></a>
+      <a href="#about" data-p="about"><i class="fa-solid fa-circle-info"></i><span>About the Project</span></a>
+      <a href="#logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <button class="icon-btn" id="toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+      <h2 id="title">Overview</h2>
+      <span class="badge purple">Demo prototype</span>
+    </header>
+
+    <section id="overview" class="page">
+      <div class="hero">
+        <h2>Welcome to Reading the Pivot</h2>
+        <p><b>Selected company:</b> Sun Pharmaceutical Industries Ltd. &nbsp;|&nbsp; <b>Industry:</b> Pharmaceuticals and Healthcare</p>
+        <label for="period">Financial analysis period</label>
+        <select id="period"><option>FY2021–FY2025 (multi-year)</option><option>Latest year vs previous year</option><option>Custom (enter years manually)</option></select>
+      </div>
+      <div class="grid4" id="stats"></div>
+      <h3>Demo scenarios <span class="badge orange">Demo Scenario — Requires Source Verification</span></h3>
+      <div class="grid2" id="scenarios"></div>
+      <div class="card"><h3>Recent analysis activity</h3><ul id="activity" class="list"></ul></div>
+    </section>
+
+    <section id="financial" class="page hidden">
+      <div class="card">
+        <div class="row">
+          <div><label for="cat">Data category</label><select id="cat"></select></div>
+          <div><label for="yrFilter">Financial year</label><select id="yrFilter"></select></div>
+        </div>
+        <div id="chartLabel" class="banner"></div>
+        <div class="chartbox"><canvas id="chart" aria-label="Financial chart" role="img"></canvas></div>
+        <p id="chartFallback" class="empty hidden">Chart.js could not load (offline?). Entered values are still saved and listed below.</p>
+      </div>
+      <div class="card">
+        <h3>Manual data entry (from a downloaded annual report)</h3>
+        <form id="dataForm" class="formgrid">
+          <div><label for="dCat">Category</label><select id="dCat"></select></div>
+          <div><label for="dYear">Financial year</label><input id="dYear" placeholder="e.g. FY2024" required></div>
+          <div><label for="dLabel">Region / segment name (if applicable)</label><input id="dLabel" placeholder="Only for geographic / segment"></div>
+          <div><label for="dVal">Value (as reported)</label><input id="dVal" type="number" step="any" required></div>
+          <div><label for="dUnit">Unit</label><input id="dUnit" placeholder="e.g. ₹ crore" required></div>
+          <div><label for="dSrc">Source document</label><input id="dSrc" placeholder="Report name" required></div>
+          <div><label for="dPage">Page number</label><input id="dPage" required></div>
+          <div class="end"><button class="btn primary" type="submit"><i class="fa-solid fa-plus"></i> Add verified value</button></div>
+        </form>
+        <div id="dataList"></div>
+      </div>
+    </section>
+
+    <section id="reports" class="page hidden">
+      <div class="card">
+        <p class="banner">PDF uploads here are held in your browser for this session only. This prototype does <b>not</b> automatically read or analyze PDFs. Reliable analysis needs readable extracted text and source verification — use the manual evidence form below.</p>
+        <div class="grid2">
+          <div><h3>Annual report</h3><div class="drop" data-type="Annual Report" tabindex="0"><i class="fa-solid fa-cloud-arrow-up"></i><p>Drag &amp; drop a PDF or click to choose</p><input type="file" accept="application/pdf" hidden></div></div>
+          <div><h3>Investor presentation</h3><div class="drop" data-type="Investor Presentation" tabindex="0"><i class="fa-solid fa-cloud-arrow-up"></i><p>Drag &amp; drop a PDF or click to choose</p><input type="file" accept="application/pdf" hidden></div></div>
+        </div>
+        <ul id="files" class="list"></ul>
+      </div>
+      <div class="card">
+        <h3>Manual evidence entry</h3>
+        <form id="evForm" class="formgrid">
+          <div><label for="eYear">Financial year</label><input id="eYear" required></div>
+          <div><label for="eTitle">Source document title</label><input id="eTitle" required></div>
+          <div><label for="ePage">Page number</label><input id="ePage" required></div>
+          <div class="full"><label for="eText">Evidence excerpt (copied from the document)</label><textarea id="eText" rows="3" required></textarea></div>
+          <div class="end"><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save evidence</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="narrative" class="page hidden">
+      <div class="card">
+        <div class="row between"><h3>Compare narrative with evidence</h3><button class="btn ghost" id="demoRun" type="button"><i class="fa-solid fa-play"></i> Run Demo Analysis</button></div>
+        <form id="nForm">
+          <div class="cols">
+            <fieldset><legend><i class="fa-solid fa-bullhorn"></i> Management narrative</legend>
+              <label for="nStmt">Strategic statement</label><textarea id="nStmt" rows="2" required></textarea>
+              <label for="nCat">Business category</label><select id="nCat"></select>
+              <label for="nYear">Financial year</label><input id="nYear" required>
+              <label for="nSrc">Source document</label><input id="nSrc" required>
+              <label for="nPg">Page reference (optional)</label><input id="nPg">
+            </fieldset>
+            <fieldset><legend><i class="fa-solid fa-file-invoice-dollar"></i> Available evidence</legend>
+              <label for="nMet">Reported financial metric</label><input id="nMet" required>
+              <div class="row"><div><label for="nPrev">Previous-year value</label><input id="nPrev" type="number" step="any"></div><div><label for="nCur">Current-year value</label><input id="nCur" type="number" step="any"></div></div>
+              <label for="nEx">Evidence excerpt</label><textarea id="nEx" rows="2"></textarea>
+              <label for="nEPg">Evidence page number</label><input id="nEPg">
+              <label for="nNote">Analyst notes</label><textarea id="nNote" rows="2"></textarea>
+            </fieldset>
+          </div>
+          <div class="row">
+            <div><label for="nVer">Your verdict</label><select id="nVer"><option>Supported by Available Evidence</option><option>Partly Supported</option><option>Not Supported by Available Evidence</option><option selected>Insufficient Evidence</option></select></div>
+            <div style="flex:2"><label for="nWhy">Reasoning for verdict</label><input id="nWhy" required></div>
+            <div class="end"><button class="btn primary" type="submit"><i class="fa-solid fa-plus"></i> Add row</button></div>
+          </div>
+        </form>
+      </div>
+      <div id="rows"></div>
+    </section>
+
+    <section id="signals" class="page hidden">
+      <p class="banner">Signals are analytical observations requiring further investigation — not predictions. Status is derived only from rows you add (demo rows are excluded). Confidence reflects evidence completeness, not probability.</p>
+      <div class="grid2" id="sigGrid"></div>
+    </section>
+
+    <section id="research" class="page hidden">
+      <div class="card"><h3>Saved evidence excerpts</h3><div id="evList"></div></div>
+      <div class="card"><h3>Preferred sources</h3>
+        <ul class="list"><li><i class="fa-solid fa-circle-check ok"></i> Official annual reports (always cite report name, year, page)</li><li><i class="fa-solid fa-circle-check ok"></i> Official investor presentations</li><li><i class="fa-solid fa-triangle-exclamation warn"></i> Not every business category is a separately reported segment — check the notes to accounts.</li></ul>
+        <h3>Data labels used</h3>
+        <p><span class="badge green">Reported fact</span> <span class="badge blue">Calculated value</span> <span class="badge orange">Illustrative example</span> <span class="badge gray">Missing information</span></p></div>
+    </section>
+
+    <section id="about" class="page hidden">
+      <div class="card"><h3>About the project</h3>
+        <p>Reading the Pivot is a pharmaceutical business intelligence prototype designed to compare management narratives with reported financial evidence. It helps researchers identify changes in business priorities, evaluate whether strategic claims are supported by disclosures, and monitor potential business-model shifts.</p>
+        <ol class="steps"><li>Select a pharmaceutical company.</li><li>Add annual reports and investor presentations.</li><li>Record management narratives.</li><li>Compare them with disclosed financial evidence.</li><li>Identify potential strategic signals.</li><li>Review the source evidence before drawing conclusions.</li></ol>
+        <blockquote>“Don't just read what a company says. Examine what its evidence reveals.”</blockquote>
+        <small>Hackathon prototype. Not affiliated with or endorsed by Sun Pharmaceutical Industries Ltd. No company financials are included unless you enter them with a source.</small></div>
+    </section>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
